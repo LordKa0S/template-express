@@ -16,6 +16,7 @@ on:
 
 jobs:
   build:
+    name: Build 🏗
 
     runs-on: ubuntu-latest
 
@@ -31,6 +32,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
-    - run: npm run build --if-present
+    - name: Install dependencies 🛠
+      run: npm ci
+
+    - name: Lint 🔍
+      run: npm run lint
+
+    - name: Build 🏗
+      run: npm run build --if-present
