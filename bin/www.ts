@@ -5,10 +5,10 @@
  */
 
 import app from '../app.js';
-import getDebugger from '../utils/debug.js';
+import makeDebug from 'debug';
 import http from 'http';
 
-const debug = getDebugger('template-express:server');
+const debug = makeDebug('template-express:server');
 
 /**
  * Get port from environment and store in Express.
@@ -62,7 +62,7 @@ function onError(error: NodeJS.ErrnoException) {
 
   const bind = typeof port === 'string'
     ? 'Pipe ' + port
-    : 'Port ' + port;
+    : 'Port ' + Number.parseInt(port.toString()).toString();
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -87,6 +87,6 @@ function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
-    : 'port ' + addr?.port;
+    : 'port ' + String(addr?.port);
   debug('Listening on ' + bind);
 }
